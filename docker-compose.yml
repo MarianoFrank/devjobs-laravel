@@ -27,6 +27,7 @@ services:
             - meilisearch
             - mailpit
             - selenium
+        command: ["./start.sh"]
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
