@@ -73,6 +73,9 @@
             <x-responsive-nav-link :href="route('offers.index')" :active="request()->routeIs('offers.index')">
                 {{ __('My offers') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('offers.create')" :active="request()->routeIs('offers.create')">
+                {{ __('New offer') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

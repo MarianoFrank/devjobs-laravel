@@ -59,5 +59,13 @@
     "Delete Account": "Eliminar cuenta",
     "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.": "Una vez que tu cuenta sea eliminada, todos sus recursos y datos serán eliminados permanentemente. Antes de eliminar tu cuenta, por favor descarga cualquier dato o información que desees conservar.",
     "Save":"Guardar",
-    "New offer": "Nueva Vacante"
+    "New offer": "Nueva Vacante",
+    "Title": "Título",
+    "Monthly salary":"Salario mensual",
+    "Category" : "Categoria",
+    "Company name": "Nombre de la Empresa",
+    "Last day to apply": "Último día para aplicar",
+    "Description": "Descripción",
+    "Image": "Imagen",
+    "Create offer": "Crear oferta"
 }

@@ -1,7 +1,9 @@
 
 # DevJobs con Laravel Sail
 
-Pasos para ejecutar este proyecto en un entorno local.
+Aclaracion, debe tener docker istalado.
+
+Pasos para ejecutar este proyecto en un entorno local. 
 
 Luego de clonar el repositorio, primero debe descargar las dependencias de Composer necesarias ejecutando el siguiente comando
 
@@ -29,6 +31,11 @@ Generamos una `APP_KEY`, utilizada para encriptar datos sensibles, como las sesi
 
 ```bash
 ./vendor/bin/sail artisan key:generate
+```
+Migrar DB
+
+```bash
+./vendor/bin/sail artisan migrate
 ```
 
 Listo, la aplicacion estara corriendo en `localhost:80` 
