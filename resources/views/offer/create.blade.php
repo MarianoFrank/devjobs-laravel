@@ -10,7 +10,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h1 class="text-2xl font-bold text-center mb-10">{{ __('New offer') }}</h1>
                     <div class="md:flex md:justify-center p-5">
-                        <livewire:create-offer />
+                        <livewire:form-offer-create />
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/offers', [OfferController::class, 'index'])->name('offers.index');
+    Route::get('/offers', [OfferController::class, 'index'])->name('dashboard');
     Route::get('/offers/create', [OfferController::class, 'create'])->name('offers.create');
 });
 

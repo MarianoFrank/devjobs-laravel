@@ -4,7 +4,7 @@
 php artisan serve --host=0.0.0.0 --port=80 &
 
 # Verificar si las dependencias están instaladas o no
-if [ ! -d "node_modules" ]; then
+if [ ! -d "/var/www/html/node_modules" ]; then
       # Si las dependencias no están instaladas o no están actualizadas, ejecutar npm install
     npm install &&
     # Ejecutar npm run dev solo después de npm install
