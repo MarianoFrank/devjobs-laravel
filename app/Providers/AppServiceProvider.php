@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -22,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-        Model::preventLazyLoading(!$this->app->isProduction());
+        Model::preventLazyLoading(!App::isProduction());
 
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)

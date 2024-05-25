@@ -9,7 +9,7 @@ use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 
-class FormOfferCreate extends Component
+class OfferCreate extends Component
 {
 
     use WithFileUploads;
@@ -45,20 +45,25 @@ class FormOfferCreate extends Component
 
         $offer = Offer::create(
             array_merge(
-                $this->only(["title", "salary", "category", "company", "expire", "description"]),
+                $this->only(["title", "company", "expire", "description"]),
                 [
+                    "salary_id" => $this->salary,
+                    "category_id" => $this->category,
                     "image" => $imageName,
                     "recruiter_id" => auth()->user()->id
                 ]
             )
         );
 
+        session()->flash('msg_success', 'Offer successfully created');
+
+        $this->redirect(route("dashboard"));
     }
     public function render()
     {
         $salaries = Salary::all();
         $categories = Category::all();
-        return view('livewire.form-offer-create', [
+        return view('livewire.offer-create', [
             "salaries" => $salaries,
             "categories" => $categories
         ]);

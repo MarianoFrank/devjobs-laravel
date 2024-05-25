@@ -58,9 +58,10 @@
     </div>
 
     @if ($image)
-        <img src="{{ $image->temporaryUrl() }}">
+        <img src="{{ $image->temporaryUrl() }}" class="rounded-md shadow-md">
     @endif
-    <x-primary-button>
+
+    <x-primary-button class="mt-5">
         {{ __('Create offer') }}
     </x-primary-button>
 </form>

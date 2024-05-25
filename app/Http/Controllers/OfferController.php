@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Offer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class OfferController extends Controller
@@ -13,7 +14,10 @@ class OfferController extends Controller
      */
     public function index()
     {
-        return view("offer.index");
+        $offers = Offer::where("recruiter_id", Auth::user()->id)->paginate(4);
+        return view("offer.index", [
+            "offers" => $offers
+        ]);
     }
 
     /**
@@ -21,7 +25,7 @@ class OfferController extends Controller
      */
     public function create()
     {
-        Gate::authorize('create',Offer::class);
+        Gate::authorize('create', Offer::class);
         return view("offer.create");
     }
 
@@ -30,7 +34,6 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-        
     }
 
     /**
