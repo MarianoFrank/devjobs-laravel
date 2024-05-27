@@ -11,13 +11,15 @@ define("PER_PAGE", 8);
 class ShowOffers extends Component
 {
     public $offers;
-    public $on_page =  PER_PAGE;
+    public $on_page = PER_PAGE;
     public $hasMore = true;
-    public $loading = false;
+    public $cant_offers = 0;
+
 
     public function mount()
     {
         $this->offers = collect();
+        $this->cant_offers = Offer::where("recruiter_id", Auth::user()->id)->count();
         $this->loadOffers();
     }
 
@@ -28,9 +30,10 @@ class ShowOffers extends Component
             ->take(PER_PAGE)
             ->get();
 
+        
         $this->offers = $this->offers->merge($newOffers);
 
-        if ($newOffers->count() < PER_PAGE) {
+        if ($this->offers->count() === $this->cant_offers) {
             $this->hasMore = false;
         }
     }
@@ -38,12 +41,8 @@ class ShowOffers extends Component
     public function loadMore(): void
     {
         if ($this->hasMore) {
-            $this->loading = true;
-            sleep(2);
-
             $this->on_page += PER_PAGE;
             $this->loadOffers();
-            $this->loading = false;
         }
     }
 
