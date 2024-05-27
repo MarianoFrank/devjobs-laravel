@@ -68,5 +68,12 @@
     "Description": "Descripción",
     "Image": "Imagen",
     "Create offer": "Crear oferta",
-    "Apply up to": "Aplica hasta"
+    "Apply up to": "Aplica hasta",
+    "Edit": "Editar",
+    "Delete": "Eliminar",
+    "Are you sure you want to delete this offer?": "¿Estás seguro de que quieres eliminar esta oferta?",
+    "Yes, delete it!": "Sí, eliminarla!",
+    "No, keep it!": "No, mantenerla!",
+    "Candidates":"Candidatos",
+    "You have not published offers yet":  "Aún no has publicado ofertas"
 }

@@ -14,10 +14,8 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offers = Offer::where("recruiter_id", Auth::user()->id)->paginate(4);
-        return view("offer.index", [
-            "offers" => $offers
-        ]);
+       
+        return view("offer.index");
     }
 
     /**

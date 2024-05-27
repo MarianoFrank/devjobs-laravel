@@ -16,7 +16,8 @@ class MyDateFormat implements CastsAttributes
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
         $date = Carbon::parse($value);
-        return $date->diffForHumans();
+        $dateFormat = $date->isoFormat("dddd, D [de] MMMM [de] YYYY");
+        return ucfirst($dateFormat);
     }
 
     /**
