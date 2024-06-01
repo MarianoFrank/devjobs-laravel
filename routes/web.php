@@ -12,6 +12,8 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/offers', [OfferController::class, 'index'])->name('dashboard');
     Route::get('/offers/create', [OfferController::class, 'create'])->name('offers.create');
+    Route::get('/offers/{offer}/edit', [OfferController::class, 'edit'])->name('offers.edit');
+
 });
 
 

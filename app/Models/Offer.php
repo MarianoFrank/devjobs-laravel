@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use App\Casts\MyDateFormat;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Offer extends Model
 {
@@ -22,10 +23,9 @@ class Offer extends Model
         "published"
     ];
 
-    protected function casts(): array
+    public function expireFormated()
     {
-        return [
-            'expire' => MyDateFormat::class,
-        ];
+        $date = Carbon::parse($this->expire)->isoFormat('dddd, D [de] MMMM [de] YYYY');
+        return  ucfirst($date);
     }
 }

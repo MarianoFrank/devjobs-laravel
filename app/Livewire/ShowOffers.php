@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Offer;
 use Livewire\Component;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 define("PER_PAGE", 8);
@@ -30,7 +31,7 @@ class ShowOffers extends Component
             ->take(PER_PAGE)
             ->get();
 
-        
+
         $this->offers = $this->offers->merge($newOffers);
 
         if ($this->offers->count() === $this->cant_offers) {
@@ -48,6 +49,7 @@ class ShowOffers extends Component
 
     public function render()
     {
+
         return view('livewire.show-offers');
     }
 }

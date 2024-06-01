@@ -14,7 +14,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-       
+
         return view("offer.index");
     }
 
@@ -45,9 +45,11 @@ class OfferController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Offer $offer)
     {
-        //
+        return view("offer.edit", [
+            "offer" => $offer
+        ]);
     }
 
     /**

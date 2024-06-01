@@ -5,7 +5,7 @@
             <div>
                 <a href="#" class="text-xl font-bold"> {{ $offer->title }}</a>
                 <p class="text-sm">{{ $offer->company }}</p>
-                <p class="mt-3 text-sm text-gray-500">{{ __('Apply up to') }}: {{ $offer->expire }}</p>
+                <p class="mt-3 text-sm text-gray-500">{{ __('Apply up to') }}: {{ $offer->expireFormated() }}</p>
             </div>
 
             <div class="flex gap-5 h-fit pt-6 flex-col md:flex-row md:gap-3">
@@ -18,7 +18,7 @@
                     </svg>
 
                 </a>
-                <a href="#"
+                <a href="{{ route('offers.edit', $offer->id) }}"
                     class=" justify-center  flex gap-2 items-center font-bold py-1 px-4 text-sm text-slate-500 bg-slate-200 rounded-lg">{{ __('Edit') }}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
