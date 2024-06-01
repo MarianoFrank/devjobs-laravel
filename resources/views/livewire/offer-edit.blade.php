@@ -58,12 +58,11 @@
     </div>
 
 
-    {{-- @if ($this->image)
-        <img src="{{ asset('storage/offers') . '/' . $this->image }}" class="rounded-md shadow-md">
-    @else   
-        ($image)
+    @if ($image)
         <img src="{{ $image->temporaryUrl() }}" class="rounded-md shadow-md">
-    @endif --}}
+    @else
+        <img src="{{ asset('storage/offers') . '/' . $old_image }}" class="rounded-md shadow-md">
+    @endif
 
     <x-primary-button class="mt-5">
         {{ __('Create offer') }}

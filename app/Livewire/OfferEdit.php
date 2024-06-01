@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Category;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class OfferEdit extends Component
 {
@@ -16,25 +17,26 @@ class OfferEdit extends Component
     public $offer_id;
 
     #[Validate('required|min:5|max:30|string')]
-    public $title = "";
+    public $title;
 
     #[Validate('required|integer|min:1|max:9')]
-    public $salary = "";
+    public $salary;
 
     #[Validate('required|integer|min:1|max:10')]
-    public $category = "";
+    public $category;
 
     #[Validate('required|min:5|max:30|string')]
-    public $company = "";
+    public $company;
 
     #[Validate('required|date|after:today')]
-    public $expire = "";
+    public $expire;
 
     #[Validate('required|min:20|max:3500|string')]
-    public $description = "";
+    public $description;
 
-    // #[Validate('required|image:jpg,jpeg,png,webp|max:1024')]
-    // public $image = "";
+    #[Validate('nullable|image:jpg,jpeg,png,webp|max:1024')]
+    public $image;
+    public $old_image;
 
     public function mount(Offer $offer)
     {
@@ -45,19 +47,21 @@ class OfferEdit extends Component
         $this->company = $offer->company;
         $this->expire = $offer->expire;
         $this->description = $offer->description;
-        //$this->image = $offer->image;
+        $this->old_image = $offer->image;
     }
 
     public function save()
     {
         $this->validate();
 
-        // $path = $this->image->store("public/offers");
-        // $imageName = str_replace("public/offers/", "", $path);
-
         $offerToEdit = Offer::find($this->offer_id);
 
-        // $offerToEdit->
+        $newImageName = "";
+        if (isset($this->image)) {
+            Storage::disk("public")->delete("offers/" . $this->old_image);
+            $path = $this->image->store("public/offers");
+            $newImageName = str_replace("public/offers/", "", $path);
+        }
 
         $offerToEdit->update(
             array_merge(
@@ -65,15 +69,14 @@ class OfferEdit extends Component
                 [
                     "salary_id" => $this->salary,
                     "category_id" => $this->category,
-                    //"image" => $imageName,
-                    //"recruiter_id" => auth()->user()->id
+                    "image" => empty($newImageName) ? $this->old_image : $newImageName,
                 ]
             )
         );
 
-        // session()->flash('msg_success', 'Offer successfully created');
+        session()->flash('msg_success', __('Offer successfully updated'));
 
-        //  $this->redirect(route("dashboard"));
+        return redirect(route("dashboard"));
     }
 
     public function render()

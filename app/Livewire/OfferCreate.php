@@ -55,7 +55,7 @@ class OfferCreate extends Component
             )
         );
 
-        session()->flash('msg_success', 'Offer successfully created');
+        session()->flash('msg_success', __('Offer successfully created'));
 
         $this->redirect(route("dashboard"));
     }
