@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
-use App\Models\Category;
 use App\Models\Offer;
 use App\Models\Salary;
-use Livewire\Attributes\Validate;
-use Livewire\WithFileUploads;
 use Livewire\Component;
+use App\Models\Category;
+use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Gate;
 
 class OfferCreate extends Component
 {
@@ -37,6 +38,10 @@ class OfferCreate extends Component
 
     public function save()
     {
+
+        if (!Gate::allows('create',  Offer::class)) {
+            return redirect(route("dashboard"));
+        }
 
         $this->validate();
 

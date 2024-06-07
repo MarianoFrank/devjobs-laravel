@@ -36,6 +36,13 @@ Migrar DB
 
 ```bash
 ./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan db:seed
+```
+
+Generar links
+
+```bash
+./vendor/bin/sail artisan storage:link
 ```
 
 Listo, la aplicacion estara corriendo en `localhost:80` 

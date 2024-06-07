@@ -14,7 +14,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-
+        Gate::authorize('viewAny', Offer::class);
         return view("offer.index");
     }
 
@@ -37,9 +37,11 @@ class OfferController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Offer $offer)
     {
-        //
+        return view("offer.show", [
+            "offer" => $offer
+        ]);
     }
 
     /**
@@ -47,24 +49,10 @@ class OfferController extends Controller
      */
     public function edit(Offer $offer)
     {
+        Gate::authorize('update', $offer);
         return view("offer.edit", [
             "offer" => $offer
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

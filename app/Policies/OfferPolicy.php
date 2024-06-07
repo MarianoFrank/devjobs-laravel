@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Offer;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Facades\Auth;
 
 class OfferPolicy
 {
@@ -14,7 +13,7 @@ class OfferPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return  $user->role === 2;
     }
 
     /**
@@ -28,9 +27,9 @@ class OfferPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(): bool
+    public function create(User $user): bool
     {
-        return  Auth::user()->role === 2; //only recruite can create offers
+        return  $user->role === 2; //only recruite can create offers
     }
 
     /**
@@ -38,7 +37,8 @@ class OfferPolicy
      */
     public function update(User $user, Offer $offer): bool
     {
-        //
+       
+        return $user->role === 2 && $offer->recruiter_id === $user->id;
     }
 
     /**
@@ -46,7 +46,7 @@ class OfferPolicy
      */
     public function delete(User $user, Offer $offer): bool
     {
-        //
+        return $user->role === 2 && $offer->recruiter_id === $user->id;
     }
 
     /**

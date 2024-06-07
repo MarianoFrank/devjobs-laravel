@@ -4,8 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Offer;
 use Livewire\Component;
-use Illuminate\Support\Carbon;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 define("PER_PAGE", 8);
 
@@ -45,6 +46,18 @@ class ShowOffers extends Component
             $this->on_page += PER_PAGE;
             $this->loadOffers();
         }
+    }
+
+    #[On('delete-offer')]
+    public function handleDelete(Offer $offer)
+    {
+        Gate::authorize('delete', $offer);
+        $offer->delete();
+
+        //quitamos de la collecion la oferta eliminada, para que se actualice el frontend
+        $this->offers = $this->offers->reject(function (Offer $value, int $key) use ($offer) {
+            return $value->id === $offer->id;
+        });
     }
 
     public function render()

@@ -1,2 +1,6 @@
 *
+offers/*
+!offers/
+pdfs/*
+!pdfs/
 !.gitignore

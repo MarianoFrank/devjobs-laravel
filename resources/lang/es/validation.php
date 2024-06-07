@@ -78,7 +78,7 @@ return [
     ],
     'max'                  => [
         'numeric' => 'Este campo no debe ser mayor a :max.',
-        'file'    => 'El archivo :attribute no debe pesar más de :max kilobytes.',
+        'file'    => 'El archivo no debe pesar más de :max kilobytes.',
         'string'  => 'Este campo no debe contener más de :max caracteres.',
         'array'   => 'Este campo no debe contener más de :max elementos.',
     ],

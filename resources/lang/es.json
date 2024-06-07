@@ -79,5 +79,14 @@
     "Load More...": "Cargar más...",
     "Edit offer": "Editar oferta",
     "Offer successfully updated": "Oferta actualizada correctamente",
-    "Offer successfully created": "Oferta creada correctamente"
+    "Offer successfully created": "Oferta creada correctamente",
+    "Available until": "Disponible hasta",  
+    "Do you want to apply for an offer?" : "¿Deseas aplicar a una oferta?",
+    "Get an account": " Obtén una cuenta",
+    "Apply to offer": "Aplicar a oferta",
+    "Send": "Enviar",
+    "Apply by sending us your resume":"Aplica enviándonos tu currículum",
+    "Sent successfully": "Enviado con éxito",
+    "Your application has been successfully submitted!":"¡Tu solicitud ha sido enviada correctamente!",
+    "Download offer summary": "Descargar resumen de la oferta"
 }

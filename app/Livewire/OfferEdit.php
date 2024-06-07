@@ -6,8 +6,9 @@ use App\Models\Offer;
 use App\Models\Salary;
 use Livewire\Component;
 use App\Models\Category;
-use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class OfferEdit extends Component
@@ -52,9 +53,13 @@ class OfferEdit extends Component
 
     public function save()
     {
-        $this->validate();
-
         $offerToEdit = Offer::find($this->offer_id);
+
+        if (!Gate::allows('update',  $offerToEdit)) {
+            return redirect(route("dashboard"));
+        }
+
+        $this->validate();
 
         $newImageName = "";
         if (isset($this->image)) {

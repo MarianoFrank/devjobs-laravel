@@ -29,7 +29,7 @@ class OfferFactory extends Factory
             "company" => $this->faker->sentence(2),
             "expire" => $this->faker->dateTimeBetween($fecha_minima, '+1 year'),
             "description" => $this->faker->text(3000),
-            "image" => $this->faker->picsum(public_path("storage/offers"), 150, 150, false),
+            "image" => $this->faker->picsum(public_path("storage/offers"), 800, 1000, false),
             "recruiter_id" => 2,
         ];
     }
