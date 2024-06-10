@@ -3,14 +3,17 @@
         <div wire:key="{{ $offer->id }}"
             class="flex md:justify-between items-center border-b last:border-none py-6 flex-col md:flex-row @if ($loop->last) border-none @endif">
             <div>
-                <a href="{{route("offers.show",$offer->id)}}" class="text-xl font-bold hover:text-blue-500"> {{ $offer->title }}</a>
+                <a href="{{ route('offers.show', $offer->id) }}" class="text-xl font-bold hover:text-blue-500">
+                    {{ $offer->title }}</a>
                 <p class="text-sm">{{ $offer->company }}</p>
                 <p class="mt-3 text-sm text-gray-500">{{ __('Apply up to') }}: {{ $offer->expireFormated() }}</p>
             </div>
 
             <div class="flex gap-5 h-fit pt-6 flex-col md:flex-row md:gap-3">
-                <a href="#"
-                    class=" justify-center flex gap-2 items-center font-bold py-1 px-5 text-sm text-blue-500 bg-blue-200 rounded-lg">{{ __('Candidates') }}
+                <a href="{{ route('candidates.index', $offer) }}"
+                    class=" justify-center flex gap-2 items-center font-bold py-1 px-5 text-sm text-blue-500 bg-blue-200 rounded-lg">
+                    {{ $offer->candidates_count }}
+                    {{ __('Candidates') }}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -102,7 +105,5 @@
                 }
             });
         });
-
-       
     </script>
 @endscript

@@ -5,8 +5,8 @@ namespace App\Models;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -42,8 +42,13 @@ class Offer extends Model
         return $this->belongsTo(Salary::class);
     }
 
-    public function candidates(): HasMany
+    public function candidates(): belongsToMany
     {
-        return $this->hasMany(Candidate::class);
+        return $this->belongsToMany(User::class,'candidates')->withPivot('cv')->withTimestamps()->orderBy('created_at','DESC');
+    }
+
+    public function recruiter(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

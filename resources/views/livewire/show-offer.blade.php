@@ -53,7 +53,7 @@
                 </svg>
             </button>
 
-            <div x-show="openModalImage"
+            <div x-cloak x-show="openModalImage"
                 class="fixed z-10 p-5 w-full h-full top-0 left-0 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50">
                 <img @click.outside="openModalImage = false" @click="zoom = !zoom"
                     class=" rounded-md md:h-full cursor-zoom-in " :class="zoom ? 'scale-150' : ''"

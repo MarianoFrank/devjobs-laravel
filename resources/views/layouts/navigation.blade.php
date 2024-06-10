@@ -13,12 +13,15 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @auth
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('My offers') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('offers.create')" :active="request()->routeIs('offers.create')">
-                            {{ __('New offer') }}
-                        </x-nav-link>
+                        @can('create', App\Models\Offer::class)
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                                {{ __('My offers') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('offers.create')" :active="request()->routeIs('offers.create')">
+                                {{ __('New offer') }}
+                            </x-nav-link>
+                        @endcan
+
                     @endauth
                 </div>
 
@@ -32,6 +35,34 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 @auth
+
+                    @if (auth()->user()->role === 2)
+                        @php
+                            $notify_count = Auth::user()->unreadNotifications->count();
+                        @endphp
+
+                        <a href="{{ route('notifications') }}"
+                            class="flex items-center justify-center gap-1 bg-gray-100 rounded-full py-1 px-4 text-gray-500 ">
+                            <p class=" p-0 m-0 text-md">
+                                {{ $notify_count }}
+                            </p>
+                            @if ($notify_count > 0)
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+                                </svg>
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                </svg>
+                            @endif
+
+                        </a>
+                    @endif
+
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
@@ -101,12 +132,14 @@
 
         <div class="pt-2 pb-3 space-y-1">
             @auth
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('My offers') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('offers.create')" :active="request()->routeIs('offers.create')">
-                    {{ __('New offer') }}
-                </x-responsive-nav-link>
+                @can('create', App\Models\Offer::class)
+                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('My offers') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('offers.create')" :active="request()->routeIs('offers.create')">
+                        {{ __('New offer') }}
+                    </x-responsive-nav-link>
+                @endcan
             @endauth
             @guest
                 <x-responsive-nav-link :href="route('login')">
@@ -116,6 +149,32 @@
                     {{ __('Register') }}
                 </x-responsive-nav-link>
             @endguest
+            @if (auth()->user()->role === 2)
+                @php
+                    $notify_count = Auth::user()->unreadNotifications->count();
+                @endphp
+
+                <a href="{{ route('notifications') }}"
+                    class="flex items-center justify-center gap-1 bg-gray-100 rounded-full py-1 px-4 text-gray-500 w-fit ml-2">
+                    <p class=" p-0 m-0 text-md">
+                        {{ $notify_count }}
+                    </p>
+                    @if ($notify_count > 0)
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+                        </svg>
+                    @else
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                        </svg>
+                    @endif
+
+                </a>
+            @endif
         </div>
 
 

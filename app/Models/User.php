@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -47,8 +48,8 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function applications(): HasMany
+    public function applications(): belongsToMany
     {
-        return $this->hasMany(Candidate::class);
+        return $this->belongsToMany(Offer::class, 'candidates')->withPivot('cv')->withTimestamps();;
     }
 }

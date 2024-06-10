@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ShowOffer extends Component
 {
@@ -10,11 +11,13 @@ class ShowOffer extends Component
 
     public function dowloadPdfOffer()
     {
+        $pdf = PDF::loadView('pdf.offer-resume', [
+            'offer' => $this->offer
+        ]);
 
-
-        // return response()->download(
-        //     $this->invoice->file_path, 'invoice.pdf'
-        // );
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, str_replace(".", "_", $this->offer->title)  . now()->toDateString() . '.pdf');
     }
 
     public function render()

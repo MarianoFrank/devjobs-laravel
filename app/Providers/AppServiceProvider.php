@@ -33,5 +33,7 @@ class AppServiceProvider extends ServiceProvider
                 ->action(__("Verify Email Address"), $url)
                 ->line(__("If you did not create an account, no further action is required."));
         });
+        
+        App::register(\Barryvdh\DomPDF\ServiceProvider::class);
     }
 }

@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Candidate;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
+use App\Notifications\NewCandidate;
 use Illuminate\Support\Facades\Auth;
 
 class ApplyToOffer extends Component
@@ -16,7 +17,7 @@ class ApplyToOffer extends Component
     #[Validate('required|mimes:pdf|max:2048')]
     public $cv;
 
-    public $offer_id;
+    public $offer;
 
     public $already_applied = false;
 
@@ -24,7 +25,7 @@ class ApplyToOffer extends Component
     {
         $this->already_applied = Candidate::where('offer_id', $offer->id)->where('user_id', Auth::user()->id)->exists();
 
-        $this->offer_id = $offer->id;
+        $this->offer = $offer;
     }
 
     public function save()
@@ -38,15 +39,23 @@ class ApplyToOffer extends Component
         $path = $this->cv->store("public/pdfs");
         $cvName = str_replace("public/pdfs/", "", $path);
 
-        $offer = Candidate::create([
+        Candidate::create([
             "user_id" => Auth::user()->id,
-            "offer_id" => $this->offer_id,
+            "offer_id" => $this->offer->id,
             "cv" => $cvName,
         ]);
 
-        session()->flash('msg_success', __('Enviado con exito'));
 
-        $this->redirect(route("offers.show", $this->offer_id));
+        $this->offer->recruiter->notify(new NewCandidate(
+            $this->offer->id,
+            $this->offer->title,
+            Auth::user()->id,
+            Auth::user()->name
+        ));
+
+        session()->flash('msg_success', __('Sent successfully'));
+
+        return redirect(route("offers.show", $this->offer->id));
     }
 
     public function render()

@@ -30,6 +30,7 @@ class ShowOffers extends Component
         $newOffers = Offer::where("recruiter_id", Auth::user()->id)
             ->skip($this->offers->count())
             ->take(PER_PAGE)
+            ->withCount('candidates')
             ->get();
 
 
